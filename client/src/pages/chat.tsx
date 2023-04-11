@@ -46,32 +46,51 @@ function Chat() {
   return (
     <>
       <div id="conteiner">
-        <ul id="messages">
-          {messages.map((item, index) => {
-            let message;
-            if (item.messageData.type === "normal") {
-              message = <p>{item.messageData.msg}</p>;
-            }
-            if (item.messageData.type === "roll") {
-              message = (
-                <>
-                  <h4>Rolagens</h4>
-                  <p>{JSON.stringify(item.messageData.rollNumbers)}</p>
-                  <h4>Soma</h4>
-                  <p>{item.messageData.rollSum}</p>
-                </>
-              );
-            }
+        <div id="chat">
+          <ul id="messages">
+            {messages.map((item, index) => {
+              let message;
+              if (item.messageData.type === "normal") {
+                message = <p>{item.messageData.msg}</p>;
+              }
+              if (item.messageData.type === "roll") {
+                message = (
+                  <>
+                    <h4>Rolagens</h4>
+                    <p>{JSON.stringify(item.messageData.rollNumbers)}</p>
+                    <h4>Soma</h4>
+                    <p>{item.messageData.rollSum}</p>
+                  </>
+                );
+              }
 
-            return (
-              <li key={index}>
-                <h3>{item.username}</h3>
-                {message}
-              </li>
-            );
-          })}
-        </ul>
-        <div ref={scrollTo}></div>
+              return (
+                <li key={index}>
+                  <h3>{item.username}</h3>
+                  {message}
+                </li>
+              );
+            })}
+          </ul>
+          <div ref={scrollTo}></div>
+        </div>
+        <div id="menu">
+          <nav>
+            <img src="/d20.png" alt="Rolar" width="30px" height="30px"></img>
+            <img
+              src="/attack.png"
+              alt="Atacar"
+              width="30px"
+              height="30px"
+            ></img>
+            <img
+              src="/magic-spell.png"
+              alt="Magias"
+              width="30px"
+              height="30px"
+            ></img>
+          </nav>
+        </div>
         <form
           id="form"
           action=""

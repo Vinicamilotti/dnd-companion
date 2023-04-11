@@ -5,6 +5,7 @@ import Chat from "./pages/chat";
 import { Create } from "./pages/createCharacter";
 import { Search } from "./pages/sheetSearch";
 import "./App.css";
+
 const socket = io("http://127.0.0.1:3000");
 socket.connect();
 function App() {
