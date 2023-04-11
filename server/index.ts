@@ -1,9 +1,10 @@
-import express from "express";
+import express, { Router } from "express";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
 import { MessageOutput } from "./schemas/messages.schema";
 import { commandHandler } from "./Handlers/commandHandler";
+import charRouter from "./routes/character.route";
 
 const app = express();
 const server = http.createServer(app);
@@ -14,8 +15,10 @@ const io = new Server(server, {
 });
 app.use(cors);
 
+app.use("/char/", charRouter);
+
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.json({ msg: "ok" });
 });
 
 io.on("connection", (socket) => {

@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Character {
+  id             String       @id @default(uuid())
+  username       String
+  charName       String
+  classes        String
+  classLvL       String
+  hitDice        Int
+  totalHitPoints Int
+  str            Int          @default(8)
+  dex            Int          @default(8)
+  cons           Int          @default(8)
+  wis            Int          @default(8)
+  inte           Int          @default(8)
+  cha            Int          @default(8)
+  attackList     AttackList[]
+  spellBook      SpellBook[]
+}
+
+model AttackList {
+  id          String     @id @default(uuid())
+  atkName     String
+  atkType     String
+  atkDice     Int
+  atkNdice    Int
+  Character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
+}
+
+model Spells {
+  id                String      @id @default(uuid())
+  spellName         String
+  spellDesc         String
+  spellSchool       String
+  spellComponents   String
+  attackSpell       Boolean     @default(false)
+  attackDamageDice  Int?
+  attackDamageNDice Int?
+  spellbook         SpellBook[]
+}
+
+model SpellBook {
+  id          String     @id @default(uuid())
+  Character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
+  Spells      Spells?    @relation(fields: [spellsId], references: [id])
+  spellsId    String?
+}
