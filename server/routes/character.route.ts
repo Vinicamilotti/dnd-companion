@@ -1,10 +1,8 @@
 import express, { Request, Response, Router } from "express";
 import { prisma } from "../utils/prisma";
 import { CreateUser } from "../schemas/character.schema,";
-const charRouter: Router = express.Router();
-charRouter.post("/create", async (req: Request, res: Response) => {
-  const { username, charName, classes, hitDice, totalHitPoints } = req.body;
-  const lvl: Array<number> = [1];
+const charRouter = async (data: CreateUser): Promise<string> => {
+  const { username, charName, classes, hitDice, totalHitPoints, lvl } = data;
   const newChar: CreateUser = {
     username,
     charName,
@@ -23,6 +21,7 @@ charRouter.post("/create", async (req: Request, res: Response) => {
       totalHitPoints,
     },
   });
-  res.json(createChar.id);
-});
+  console.log("created", createChar.id);
+  return createChar.id;
+};
 export default charRouter;

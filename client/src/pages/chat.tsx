@@ -1,8 +1,9 @@
-import { FormEvent, useRef, useState, useEffect } from "react";
-import { socket } from "../contexts/socketContext";
+import { FormEvent, useRef, useState, useEffect, useContext } from "react";
+import { SocketContext } from "../contexts/socketContext";
 import { MessageOutput } from "../schemas/messages.schema";
 import "./styles/chat.css";
 function Chat() {
+  const socket = useContext(SocketContext);
   const scrollTo = useRef<null | HTMLDivElement>(null);
   const [username, setUser] = useState<string | null>();
   const [messages, setMessages] = useState<Array<MessageOutput>>([]);

@@ -5,6 +5,7 @@ import cors from "cors";
 import { MessageOutput } from "./schemas/messages.schema";
 import { commandHandler } from "./Handlers/commandHandler";
 import charRouter from "./routes/character.route";
+import { CreateUser } from "./schemas/character.schema,";
 
 const app = express();
 const server = http.createServer(app);
@@ -14,8 +15,6 @@ const io = new Server(server, {
   },
 });
 app.use(cors);
-
-app.use("/char/", charRouter);
 
 app.get("/", (req, res) => {
   res.json({ msg: "ok" });
@@ -39,6 +38,10 @@ io.on("connection", (socket) => {
       commandParams,
     });
     socket.emit("chat message", response);
+  });
+  socket.on("create", async (data: CreateUser) => {
+    const create = await charRouter(data);
+    socket.emit("created", create);
   });
 });
 
