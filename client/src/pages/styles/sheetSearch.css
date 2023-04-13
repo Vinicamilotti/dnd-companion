@@ -5,3 +5,25 @@
     place-content: center;
 
 }
+#searchForm>input{
+    background-color: #1a1818 ;
+    color: white;
+    border:none;
+    height: 30px;
+
+}
+
+#searchForm>input:active{
+    border:none
+
+}
+
+#searchForm>button {
+    background-color: #1a1818;
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    border: none;
+    border-left: solid black 1px;
+    height: 32px;
+}

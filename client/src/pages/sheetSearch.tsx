@@ -7,7 +7,6 @@ export const Search = () => {
   const [user, setUser] = useState<Boolean | string>(false);
   const [key, setKey] = useState<string>();
   socket.on("reciveUser", (accessKey: string) => {
-    console.log(accessKey);
     setUser(accessKey);
   });
   if (!user)
@@ -34,5 +33,5 @@ export const Search = () => {
       </>
     );
 
-  return <Sheet></Sheet>;
+  return <Sheet props={user}></Sheet>;
 };

@@ -16,8 +16,6 @@ function Chat() {
   });
   socket.on("chat message", (msg: MessageOutput) => {
     setMessages([...messages, msg]);
-    console.log(msg);
-    console.log(messages);
   });
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
