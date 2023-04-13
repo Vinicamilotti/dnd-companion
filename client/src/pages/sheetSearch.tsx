@@ -1,33 +1,38 @@
 import { useContext, useState } from "react";
 import { SocketContext } from "../contexts/socketContext";
 import { Sheet } from "./characterSheet";
-
+import "./styles/sheetSearch.css";
 export const Search = () => {
   const socket = useContext(SocketContext);
   const [user, setUser] = useState<Boolean | string>(false);
   const [key, setKey] = useState<string>();
-  socket.on("recive user", (accessKey: string) => {
+  socket.on("reciveUser", (accessKey: string) => {
+    console.log(accessKey);
     setUser(accessKey);
   });
   if (!user)
     return (
       <>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            socket.emit("getUser", key);
-          }}
-        >
-          <h2>Digite sua chave</h2>
-          <input
-            onChange={(e) => {
-              setKey(e.target.value);
+        <div id="searchConteiner">
+          <form
+            id="searchForm"
+            onSubmit={(e) => {
+              e.preventDefault();
+              console.log(key);
+              socket.emit("getUser", key);
             }}
-          ></input>
-        </form>
+          >
+            <h2>Digite sua chave</h2>
+            <input
+              onChange={(e) => {
+                setKey(e.target.value);
+              }}
+            ></input>
+            <button type="submit">Procurar</button>
+          </form>
+        </div>
       </>
     );
-  if (user) {
-    return <Sheet></Sheet>;
-  }
+
+  return <Sheet></Sheet>;
 };

@@ -1,0 +1,7 @@
+#searchConteiner {
+    display: grid;
+    
+    width: 100vw;
+    place-content: center;
+
+}

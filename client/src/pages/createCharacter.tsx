@@ -1,18 +1,47 @@
-import { FormEvent, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { CreateUser } from "../schemas/character.schema,";
 import { SocketContext } from "../contexts/socketContext";
-
+import "./styles/createChar.css";
 export const Create = () => {
   const socket = useContext(SocketContext);
   const [username, setUsername] = useState<string>("");
   const [charName, setChar] = useState<string>("");
   const [classes, setClasses] = useState<Array<string>>([""]);
   const [hitDice, setHitDice] = useState<number>(6);
-  const [isCreated, setCreated] = useState<string | null>(null);
+  const [isCreated, setCreated] = useState<string>("");
   socket.on("created", (id) => {
-    setCreated(`Usuário criado, para acessa-lo use o código ${id}`);
+    setCreated(id);
   });
-  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(isCreated);
+    alert("Copiado para a area de transferencia");
+  };
+  const Message = () => {
+    if (isCreated === "") {
+      return isCreated;
+    }
+    if (isCreated === "error") {
+      return <p>Ops, algo deu errado</p>;
+    }
+    return (
+      <>
+        <p>Usuário criado! Para acessa-lo utilize o código:</p>
+        <div id="code">
+          <code>{isCreated}</code>
+          <div
+            id="copy"
+            onClick={(e) => {
+              copyToClipboard();
+            }}
+          >
+            Copiar
+          </div>
+        </div>
+      </>
+    );
+  };
+  const submitHandler = async () => {
     const data: CreateUser = {
       username,
       charName,
@@ -21,48 +50,52 @@ export const Create = () => {
       lvl: [1],
       totalHitPoints: hitDice,
     };
-    console.log(data);
-    socket.emit("create", data);
+    if (username !== "" && charName !== "" && classes[0] !== "") {
+      socket.emit("create", data);
+    } else {
+      setCreated("error");
+    }
   };
   return (
-    <div id="conteiner">
+    <div id="createConteiner">
       <h2>Crie seu personagem</h2>
       <form
         action=""
         onSubmit={async (e) => {
           e.preventDefault();
-          await submitHandler(e);
+          await submitHandler();
         }}
       >
         <label>
-          Seu nome
+          <p>Seu nome</p>
           <input
+            className="createInput"
             onChange={(e) => {
               setUsername(e.target.value);
             }}
           ></input>
         </label>
         <label>
-          Nome do personagem
+          <p>Nome do Personagem</p>
           <input
-            name="charName"
+            className="createInput"
             onChange={(e) => {
               setChar(e.target.value);
             }}
           ></input>
         </label>
         <label>
-          Classe
+          <p>Classe</p>
           <input
+            className="createInput"
             onChange={(e) => {
               setClasses([e.target.value]);
             }}
           ></input>
         </label>
         <label>
-          HitDice
+          <p>HitDice</p>
           <select
-            name="hitDice"
             onChange={(e) => {
               setHitDice(e.target.options.selectedIndex.valueOf());
             }}
@@ -73,9 +106,11 @@ export const Create = () => {
             <option value={12}>D12</option>
           </select>
         </label>
-        <button type="submit">Criar</button>
+        <button id="createButton" type="submit">
+          Criar
+        </button>
       </form>
-      <div>{isCreated}</div>
+      <div id="msg">{Message()}</div>
     </div>
   );
 };

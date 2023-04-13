@@ -1,0 +1,61 @@
+#createConteiner {
+    display:grid;
+    align-content: center;
+    place-content: center;
+}
+#createConteiner>form{
+    display: block;
+}
+
+#createConteiner>form>label{
+    display: block;
+}
+
+.createInput {
+    width: 500px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color:  #1a1818;
+    color: white;
+}
+
+#createButton {
+    margin-top: 10px;
+    width: 510px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background-color:  #1a1818;
+    color: white;
+    padding: 10px;
+}
+#createButton:hover{
+    cursor: pointer;
+
+}
+
+
+#msg {
+    margin-top: 10px;
+}
+#code{
+    background-color: #1a1818;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    place-content: center;
+}
+#copy{
+    display: flex;
+    place-items: center;
+    align-items: center;
+    place-content: middle;
+    text-align: center;
+    margin-left: 50px;
+    width: 100px;
+    height: 30px;
+}
+#copy:hover{
+    cursor: pointer;
+}

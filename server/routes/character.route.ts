@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from "express";
 import { prisma } from "../utils/prisma";
-import { CreateUser } from "../schemas/character.schema,";
+import { CreateUser } from "../schemas/character.schema";
 const charRouter = async (data: CreateUser): Promise<string> => {
   const { username, charName, classes, hitDice, totalHitPoints, lvl } = data;
   const newChar: CreateUser = {
