@@ -4,7 +4,7 @@ import { Server } from "socket.io";
 import cors from "cors";
 import { MessageOutput } from "./schemas/messages.schema";
 import { commandHandler } from "./Handlers/commandHandler";
-import charRouter from "./routes/character.route";
+import charRouter, { getChar } from "./routes/character.route";
 import { CreateUser } from "./schemas/character.schema";
 
 const app = express();
@@ -43,8 +43,9 @@ io.on("connection", (socket) => {
     const create = await charRouter(data);
     socket.emit("created", create);
   });
-  socket.on("getUser", (id) => {
-    socket.emit("reciveUser", id);
+  socket.on("getUser", async (id) => {
+    const user = await getChar(id);
+    socket.emit("reciveUser", user);
   });
 });
 

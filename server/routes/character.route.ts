@@ -1,6 +1,6 @@
-import express, { Request, Response, Router } from "express";
+import express, { json, Request, Response, Router } from "express";
 import { prisma } from "../utils/prisma";
-import { CreateUser } from "../schemas/character.schema";
+import { Char, CreateUser } from "../schemas/character.schema";
 const charRouter = async (data: CreateUser): Promise<string> => {
   const { username, charName, classes, hitDice, totalHitPoints, lvl } = data;
   const newChar: CreateUser = {
@@ -25,3 +25,27 @@ const charRouter = async (data: CreateUser): Promise<string> => {
   return createChar.id;
 };
 export default charRouter;
+export const getChar = async (id: string): Promise<Char> => {
+  const char = await prisma.character.findUnique({ where: { id: id } });
+  let response: Char = { code: "error" };
+  if (char) {
+    response = {
+      code: "ok",
+      username: char.username,
+      charName: char.charName,
+      classes: JSON.parse(char.classes),
+      lvl: JSON.parse(char.classLvL),
+      hitDice: char.hitDice,
+      totalHitPoints: char.hitDice,
+      str: char.str,
+      cons: char.cons,
+      dex: char.dex,
+      wis: char.wis,
+      inte: char.inte,
+      cha: char.cha,
+      id: char.id,
+    };
+  }
+  console.log(response);
+  return response;
+};
