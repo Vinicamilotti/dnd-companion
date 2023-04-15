@@ -18,6 +18,7 @@ model Character {
   classLvL       String
   hitDice        Int
   totalHitPoints Int
+  proficiences   String       @default("[]")
   str            Int          @default(8)
   dex            Int          @default(8)
   cons           Int          @default(8)

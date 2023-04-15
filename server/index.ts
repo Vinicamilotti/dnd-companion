@@ -45,7 +45,11 @@ io.on("connection", (socket) => {
   });
   socket.on("getUser", async (id) => {
     const user = await getChar(id);
-    socket.emit("reciveUser", user);
+    if (user) {
+      socket.emit("reciveUser", user, "ok");
+    } else {
+      socket.emit("reciveUser", null, "error");
+    }
   });
 });
 

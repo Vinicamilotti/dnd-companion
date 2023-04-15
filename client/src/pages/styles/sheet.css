@@ -1,0 +1,90 @@
+#sheetConteiner{
+    display: grid;
+    place-content: center;
+}
+#sheetConteiner>h1{
+    text-align: center;
+}
+
+#sheetMenu {
+    align-content: center;
+    position: fixed;
+}
+
+#sheetMenu>nav>button{
+    display: block;
+    width: 100px;
+    margin-top: 10px;
+    border: none;
+    background-color: rgb(66, 66, 66);
+    color: white;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
+}
+
+#names{
+    display: flex;
+}
+
+#names>div{
+    padding: 10px;
+    margin-left: 10px;
+    bottom: 0;
+}
+
+
+#classes>ul{
+    list-style: none;
+
+}
+#classes>ul>li{
+    margin-left: -40px;
+    list-style: none;
+}
+
+#stats {
+    display: flex;
+    left: 10px;
+}
+.statBlock{
+    width: 60px;
+    height: 70px;
+    border: solid 1px white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 10px;
+    display: grid;
+}
+
+.statName{
+    height: 10px;
+    top: 0;
+    margin: 0;
+
+}
+
+.statName>h5{
+    top:0;
+    margin-top: 0;
+    text-align: center;
+}
+.number {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    text-align: center;
+    place-content: center;
+    margin-top: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid white;
+    width: 60px;
+}
+.mod{
+    margin-top: 10px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    place-content: center;
+    font-weight: bold;
+}

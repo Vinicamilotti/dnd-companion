@@ -4,3 +4,6 @@
 /node_modules
 /server/prisma/dev.db
 /server/prisma/migrations
+/.vscode/
+/.vscode/launch.json
+/.vscode/settings.json

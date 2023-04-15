@@ -25,14 +25,14 @@ const charRouter = async (data: CreateUser): Promise<string> => {
   return createChar.id;
 };
 export default charRouter;
-export const getChar = async (id: string): Promise<Char> => {
+export const getChar = async (id: string): Promise<Char | null> => {
   const char = await prisma.character.findUnique({ where: { id: id } });
-  let response: Char = { code: "error" };
+  let response: Char | null = null;
   if (char) {
     response = {
-      code: "ok",
       username: char.username,
       charName: char.charName,
+      proficiences: JSON.parse(char.proficiences),
       classes: JSON.parse(char.classes),
       lvl: JSON.parse(char.classLvL),
       hitDice: char.hitDice,
@@ -46,6 +46,5 @@ export const getChar = async (id: string): Promise<Char> => {
       id: char.id,
     };
   }
-  console.log(response);
   return response;
 };
