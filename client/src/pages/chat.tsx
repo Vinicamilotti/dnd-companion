@@ -2,8 +2,9 @@ import { FormEvent, useRef, useState, useEffect, useContext } from "react";
 import { SocketContext } from "../contexts/socketContext";
 import { MessageOutput } from "../schemas/messages.schema";
 import "./styles/chat.css";
+
 function Chat() {
-  const socket = useContext(SocketContext);
+  const socket = useContext(SocketContext)
   const scrollTo = useRef<null | HTMLDivElement>(null);
   const [username, setUser] = useState<string | null>();
   const [messages, setMessages] = useState<Array<MessageOutput>>([]);
@@ -11,13 +12,12 @@ function Chat() {
   const scrollToBottom = () => {
     scrollTo.current?.scrollIntoView();
   };
+  socket.on("new message", (msg:MessageOutput)=>{
+      setMessages([...messages, msg])
+    })
   useEffect(() => {
-    scrollToBottom();
-  });
-  socket.on("chat message", (msg: MessageOutput) => {
-    setMessages([...messages, msg]);
-  });
-
+    scrollToBottom()});
+  
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const checkUser = username ? true : false;

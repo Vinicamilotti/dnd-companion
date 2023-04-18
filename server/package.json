@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules ./index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node ./build/index.js"
   },
-  "author": "",
+  "author": "Vinicius Camilotti",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.12.0",

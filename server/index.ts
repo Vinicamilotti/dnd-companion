@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 import cors from "cors";
@@ -16,19 +16,15 @@ const io = new Server(server, {
 });
 app.use(cors);
 
-app.get("/", (req, res) => {
-  res.json({ msg: "ok" });
-});
-
 io.on("connection", (socket) => {
-  console.log("a user connected");
+ console.log("a user connected");
   socket.on("chat message", (username, msg) => {
     const response: MessageOutput = {
       username: username,
       messageData: { type: "normal", msg: msg },
     };
-    console.log(msg);
-    socket.emit("chat message", response);
+    console.log(msg)
+    io.emit("new message", response);
   });
   socket.on("command", (username, commandType, commandParams) => {
     console.log(username, commandType, commandParams);
@@ -37,7 +33,7 @@ io.on("connection", (socket) => {
       commandType,
       commandParams,
     });
-    socket.emit("chat message", response);
+    io.emit("new message", response);
   });
   socket.on("create", async (data: CreateUser) => {
     const create = await charRouter(data);
