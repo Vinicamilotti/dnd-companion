@@ -2,6 +2,7 @@
 /server/.env
 /client/node_modules
 /node_modules
+/server/prisma
 /server/prisma/dev.db
 /server/prisma/migrations
 /.vscode/
